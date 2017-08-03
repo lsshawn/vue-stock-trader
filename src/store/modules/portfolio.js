@@ -7,7 +7,8 @@ const mutations = {
   'BUY_STOCK' (state, { stockId, quantity, stockPrice }) { // get passed from Stocks-stock component
     // check if stock is in portfolio, add position
     // JS note: single line function has implicit return
-    const record = state.stocks.find(element => element.id == stockId) // 'element' is automatically passed into find method.
+    // 'element' is automatically passed into find method.
+    const record = state.stocks.find(element => element.id == stockId)
     
     if (record) {
       record.quantity += quantity
@@ -19,13 +20,13 @@ const mutations = {
     }
     state.funds -= stockPrice * quantity
   },
-  'SELL_STOCK' (state, { stockId, quantity, stockPrice }) {
-    const record = state.stocks.find(element => element.id == stock.id)
+  'SELL_STOCK' (state, {stockId, quantity, stockPrice}) {
+    const record = state.stocks.find(element => element.id == stockId)
     if (record.quantity > quantity) {
       record.quantity -= quantity
     // if tried to sell more, remove item from portfolio of stocks
     } else {
-      state.stocks.splice(state.stocks.indexOf(record))
+      state.stocks.splice(state.stocks.indexOf(record), 1)
     }
     state.funds += stockPrice * quantity
   }
@@ -33,7 +34,7 @@ const mutations = {
 
 const actions = {
   sellStock ({commit}, order) {
-    commit('SELL_STOCK')
+    commit('SELL_STOCK', order)
   }
   // buyStock action is in stocks module
 }
