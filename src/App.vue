@@ -12,6 +12,9 @@
   export default {
     components: {
       appHeader: Header
+    },
+    created () { // when root is initialized, run 'initStocks' action in stocks module
+      this.$store.dispatch('initStocks')
     }
   }
 </script>
