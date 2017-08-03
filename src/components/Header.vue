@@ -27,8 +27,8 @@
              aria-haspopup="true" 
              aria-expanded="false">Dropdown <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="#">Save Data</a></li>
-            <li><a href="#">Load Data</a></li>
+            <li><a href="#" @click="saveData">Save Data</a></li>
+            <li><a href="#" @click="loadData">Load Data</a></li>
           </ul>
         </li>
       </ul>
@@ -54,12 +54,26 @@
     },
     
     methods: {
-      ...mapActions([
-        'randomizeStocks'
-      ]),
+      ...mapActions({
+        randomizeStocks: 'randomizeStocks',
+        fetchData: 'loadData' // avoid name clashing below
+      }),
       endDay () {
         // actions in store/stocks module
         this.randomizeStocks()
+      },
+      saveData () {
+        // the data pieces
+        const data = {
+          funds: this.$store.getters.funds,
+          stockPortfolio: this.$store.getters.stockPortfolio,
+          stocks: this.$store.getters.stocks
+        }
+        this.axios.put('data.json', data)
+      },
+      loadData () {
+        // load data action in store because it changes state
+        this.fetchData()
       }
     }
   }
