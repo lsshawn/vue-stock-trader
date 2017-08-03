@@ -13,8 +13,8 @@ const mutations = {
 }
 
 const actions = {
-  buyStock: ({ commit }, order) => {
-    commit()
+  buyStock: ({ commit }, order) => { // the mutations is in Portfolio module. Yes it's possible.
+    commit('BUY_STOCK', order)
   },
   initStocks: ({ commit }) => {
     commit('SET_STOCKS', stocks) // stocks from data folder

@@ -18,7 +18,8 @@
         <div class="pull-right">
           <button 
                   class="btn btn-success"
-                  @click="buyStock">Buy</button>
+                  @click="buyStock"
+                  :disabled="quantity <= 0">Buy</button>
         </div>
       </div>
     </div>
@@ -29,7 +30,9 @@
   export default {
     props: ['stock'],
     data () {
-      quantity: 0
+      return {
+        quantity: 0  
+      }
     },
     methods: {
       buyStock () {
@@ -39,6 +42,7 @@
           quantity: this.quantity
         }
         console.log(order)
+        this.$store.dispatch('buyStock', order)
         this.quantity = 0
       }
     }
